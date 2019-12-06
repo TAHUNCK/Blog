@@ -1,0 +1,88 @@
+<?php
+
+namespace app\common\model;
+
+use think\Model;
+use traits\model\SoftDelete;
+
+class Admin extends Model
+{
+    //使用软删除
+    //use SoftDelete;
+
+    //只读字段
+    //protected $readonly =['email'];
+
+    //登录校验
+    public function login($data){
+        //为了区分，直接使用命名空间
+        $validate=new \app\common\validate\Admin();
+        //验证用户名和密码是否存在
+        if(!$validate->scene('login')->check($data)){
+            //验证未通过，返回错误信息
+            return $validate->getError();
+        }
+        //查询一条结果
+        $result=$this->where($data)->find();
+        if($result){
+            //判断用户是否可用
+            if($result['status']!=1){
+                return '此账户已被禁用';
+            }
+
+            $sessionData=[
+                'id'=>$result['id'],
+                'nickname'=>$result['nickname'],
+                'is_super'=>$result['is_super']
+            ];
+
+            session('admin',$sessionData);
+
+            //1表示用户名和密码正确
+            return 1;
+        }else{
+            return '用户名或密码错误';
+        }
+    }
+
+    //注册账户
+    public function register($data){
+        $validate=new \app\common\validate\Admin();
+        //自定义注册场景验证器，5.1版本可用
+        if(!$validate->scene('register')->check($data)){
+            return $validate->getError();
+        }
+        //unset去除无用字段,allowField不允许插入数据库中没有的字段
+        //unset($data['conpass']);
+        //直接保存不需要查询
+        $result=$this->allowField(true)->save($data);
+        if($result){
+            mailTo($data['email'],'注册管理员账户成功','注册管理员账户成功');
+            return 1;
+        }else{
+            return '注册失败';
+        }
+    }
+
+    //重置密码
+    public function reset($data){
+        $validate=new \app\common\validate\Admin();
+        if(!$validate->scene('reset')->check($data)){
+            return $validate->getError();
+        }
+        if($data['code']!=session('code')){
+            return '验证码不正确';
+        }
+        $adminInfo=$this->where('email',$data['email'])->find();
+        $adminInfo->password=$data['password'];
+        $result=$adminInfo->save();
+        if($result){
+            return 1;
+        }else{
+            return '重置密码失败';
+        }
+
+    }
+
+
+}
