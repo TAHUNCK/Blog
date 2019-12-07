@@ -2,10 +2,19 @@
 
 namespace app\admin\controller;
 
+//继承基础控制器
 use think\Controller;
 
 class Index extends Controller
 {
+    //防止重复登录控制器
+    public function initialize()
+    {
+        if(session('?admin.id')){
+            $this->redirect('admin/home/index');
+        }
+    }
+
     //后台登录
     public function login(){
         //判断ajax请求

@@ -3,12 +3,13 @@
 namespace app\common\model;
 
 use think\Model;
-use traits\model\SoftDelete;
+use think\model\concern\SoftDelete;
+
 
 class Admin extends Model
 {
     //使用软删除
-    //use SoftDelete;
+    use SoftDelete;
 
     //只读字段
     //protected $readonly =['email'];
@@ -29,7 +30,7 @@ class Admin extends Model
             if($result['status']!=1){
                 return '此账户已被禁用';
             }
-
+            //注入session
             $sessionData=[
                 'id'=>$result['id'],
                 'nickname'=>$result['nickname'],

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+    <title>管理后台</title>
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+    <link href="/static/admin/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/static/admin/css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="/static/admin/css/weather-icons.min.css" rel="stylesheet"/>
+    <link href="/static/admin/css/beyond.min.css" id="beyond-link" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Loading Container -->
+<div class="loading-container">
+    <div class="loader"></div>
+</div>
+<!--  /Loading Container -->
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="navbar-container">
+            <!-- Navbar Barnd -->
+            <div class="navbar-header pull-left">
+                <a class="navbar-brand" href="#">
+                    <small style="line-height: 40px;">管理后台</small>
+                </a>
+            </div>
+            <!-- /Navbar Barnd -->
+            <!-- Sidebar Collapse -->
+            <div class="sidebar-collapse" id="sidebar-collapse">
+                <i class="collapse-icon fa fa-bars"></i>
+            </div>
+            <!-- /Sidebar Collapse -->
+            <!-- Account Area and Settings --->
+            <div class="navbar-header pull-right">
+                <div class="navbar-account">
+                    <ul class="account-area">
+                        <li>
+                            <a class="login-area dropdown-toggle" data-toggle="dropdown">
+                                <div class="avatar" title="View your public profile">
+                                    <img src="/static/admin/img/logo.jpg">
+                                </div>
+                                <section style="min-width: 70px;">
+                                    <h2><span class="profile"><span>{:session('admin.nickname')}</span></span></h2>
+                                </section>
+                            </a>
+                            <!--Login Area Dropdown-->
+                            <ul class="pull-right dropdown-menu dropdown-arrow dropdown-login-area">
+                                <li class="username"><a>TAHUN</a></li>
+                                <li class="email"><a>TAHUNCK@gamil.com</a></li>
+                                <!--Avatar Area-->
+                                <li>
+                                    <div class="avatar-area">
+                                        <img class="avatar" src="/static/admin/img/logo.jpg">
+                                        <span class="caption">个人头像</span>
+                                    </div>
+                                </li>
+                                <!--Avatar Area-->
+                                <li class="edit">
+                                    <a class="pull-left" href="profile.html">个人资料</a>
+                                    <a class="pull-right" href="#">个人设置</a>
+                                </li>
+                                <!--Theme Selector Area-->
+                                <li class="theme-area">
+                                    <ul class="colorpicker" id="skin-changer">
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/blue.min.css"
+                                               style="background-color:#5DB2FF;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/azure.min.css"
+                                               style="background-color:#2dc3e8;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/teal.min.css"
+                                               style="background-color:#03B3B2;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/green.min.css"
+                                               style="background-color:#53a93f;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/orange.min.css"
+                                               style="background-color:#FF8F32;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/pink.min.css"
+                                               style="background-color:#cc324b;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/darkred.min.css"
+                                               style="background-color:#AC193D;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/purple.min.css"
+                                               style="background-color:#8C0095;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/darkblue.min.css"
+                                               style="background-color:#0072C6;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/gray.min.css"
+                                               style="background-color:#585858;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/black.min.css"
+                                               style="background-color:#474544;"></a></li>
+                                        <li><a class="colorpick-btn" href="#" rel="/static/admin/css/skins/deepblue.min.css"
+                                               style="background-color:#001940;"></a></li>
+                                    </ul>
+                                </li>
+                                <!--/Theme Selector Area-->
+                                <li class="dropdown-footer">
+                                    <a href="#" id="logout">退出</a>
+                                </li>
+                            </ul>
+                            <!--/Login Area Dropdown-->
+                        </li>
+                        <!-- /Account Area -->
+                        <!--Note: notice that setting div must start right after account area list.
+                        no space must be between these elements-->
+                        <!-- Settings -->
+                    </ul>
+                    <div class="setting">
+                        <a href="#" id="btn-setting" title="Setting">
+                            <i class="icon glyphicon glyphicon-cog"></i>
+                        </a>
+                    </div>
+                    <div class="setting-container">
+                        <label>
+                            <input id="checkbox_fixednavbar" type="checkbox">
+                            <span class="text">头部固定</span>
+                        </label>
+                        <label>
+                            <input id="checkbox_fixedsidebar" type="checkbox">
+                            <span class="text">菜单固定</span>
+                        </label>
+                    </div>
+                    <!-- Settings -->
+                </div>
+            </div>
+            <!-- /Account Area and Settings -->
+        </div>
+    </div>
+</div>

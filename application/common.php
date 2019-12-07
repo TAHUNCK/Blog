@@ -41,3 +41,8 @@ function mailTo($to,$title,$content){
         exception($mail->ErrorInfo,1001);
     }
 }
+
+//将span标签字符串替换成a
+function replace($data){
+    return str_replace('span','a',$data);
+}
