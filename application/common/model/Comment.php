@@ -22,4 +22,19 @@ class Comment extends Model
         return $this->belongsTo('Member','member_id','id');
     }
 
+    //文章评论
+    public function comment($data)
+    {
+        $validate = new \app\common\validate\Comment();
+        if (!$validate->scene('comment')->check($data)) {
+            return $validate->getError();
+        }
+        $result = $this->allowField(true)->save($data);
+        if ($result) {
+            return 1;
+        } else {
+            return '评论失败';
+        }
+    }
+
 }

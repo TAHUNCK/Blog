@@ -43,6 +43,14 @@ function mailTo($to,$title,$content){
 }
 
 //将span标签字符串替换成a
-function replace($data){
-    return str_replace('span','a',$data);
+function replace($data)
+{
+    return str_replace('span', 'a', $data);
 }
+
+//将字符串转换为数组
+function strToArray($data)
+{
+    return explode('|', $data);
+}
+

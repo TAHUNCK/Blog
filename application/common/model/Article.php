@@ -18,7 +18,8 @@ class Article extends Model
     }
 
     //关联文章表
-    public function commenta(){
+    public function comments()
+    {
         //文章对评论一对多
         return $this->hasMany('Comment','article_id','id');
     }

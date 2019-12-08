@@ -14,7 +14,8 @@ class Member extends Model
     protected $readonly=['username','email'];
 
     //关联评论模型
-    public function commentm(){
+    public function comments()
+    {
         return $this->hasMany('Comment','member_id','id');
     }
 
@@ -54,6 +55,43 @@ class Member extends Model
 
     }
 
+    //会员注册
+    public function register($data)
+    {
+        $validate = new \app\common\validate\Member();
+        if (!$validate->scene('register')->check($data)) {
+            return $validate->getError();
+        }
+        $result = $this->allowField(true)->save($data);
+        if ($result) {
+            return 1;
+        } else {
+            return '注册失败';
+        }
+
+    }
+
+    //会员登录
+    public function login($data)
+    {
+        $validate = new \app\common\validate\Member();
+        if (!$validate->scene('login')->check($data)) {
+            return $validate->getError();
+        }
+        //先去除验证码再查询
+        unset($data['verify']);
+        $result = $this->where($data)->find();
+        if ($result) {
+            $sessionData = [
+                'id' => $result['id'],
+                'nickname' => $result['nickname']
+            ];
+            session('index', $sessionData);
+            return 1;
+        } else {
+            return '用户名或密码错误';
+        }
+    }
 
 
 }
