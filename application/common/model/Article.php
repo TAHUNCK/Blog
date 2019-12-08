@@ -12,8 +12,15 @@ class Article extends Model
 
     //关联栏目表
     public function cate(){
+        //文章对栏目多对一
         //article表中的cate_id对应cate表中的id
         return $this->belongsTo('Cate','cate_id','id');
+    }
+
+    //关联文章表
+    public function commenta(){
+        //文章对评论一对多
+        return $this->hasMany('Comment','article_id','id');
     }
 
     //文章添加

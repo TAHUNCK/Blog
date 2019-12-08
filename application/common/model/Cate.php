@@ -10,6 +10,11 @@ class Cate extends Model
     //软删除
     use SoftDelete;
 
+    //栏目关联文章删除，栏目对文章为1:n
+    public function article(){
+        return $this->hasMany('Article','cate_id','id');
+    }
+
     //栏目添加
     public function add($data){
         $validate=new \app\common\validate\Cate();

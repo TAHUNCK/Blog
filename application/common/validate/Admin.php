@@ -17,6 +17,7 @@ class Admin extends Validate
         //验证不为空的规则require,其他规则如alpha...
         'username|管理员账户'=>'require',
         'password|管理员密码'=>'require',
+        'oldpass|原密码'=>'require',
         'conpass|确认密码'=>'require|confirm:password',
         'nickname|昵称'=>'require',
         'email|邮箱'=>'require|email|unique:admin',
@@ -31,8 +32,7 @@ class Admin extends Validate
 
     //注册场景验证
     public function sceneRegister(){
-        return $this->only(['username','password','conpass','nickname','email'])
-            ->append('username','unique:admin');
+        return $this->only(['username','password','conpass','nickname','email'])->append('username','unique:admin');
     }
 
     //重置密码验证场景
@@ -40,6 +40,15 @@ class Admin extends Validate
         return $this->only(['code','password','conpass']);
     }
 
+    //添加场景验证
+    public function sceneAdd(){
+        return $this->only(['username','password','conpass','nickname','email'])->append('username','unique:admin');
+    }
+
+    //编辑场景验证
+    public function sceneEdit(){
+        return $this->only(['oldpass','nickname']);
+    }
 
 
 

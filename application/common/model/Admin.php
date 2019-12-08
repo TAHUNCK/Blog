@@ -12,7 +12,7 @@ class Admin extends Model
     use SoftDelete;
 
     //只读字段
-    //protected $readonly =['email'];
+    protected $readonly =['email','username'];
 
     //登录校验
     public function login($data){
@@ -85,5 +85,38 @@ class Admin extends Model
 
     }
 
+    //添加管理员
+    public function add($data){
+        $validate=new \app\common\validate\Admin();
+        if(!$validate->scene('add')->check($data)){
+            return $validate->getError();
+        }
+        $result=$this->allowField(true)->save($data);
+        if($result){
+            return 1;
+        }else{
+            return '管理员添加失败';
+        }
+    }
+
+    //编辑管理员
+    public function edit($data){
+        $validate= new \app\common\validate\Admin();
+        if(!$validate->scene('edit')->check($data)){
+            return $validate->getError();
+        }
+        $adminInfo=$this->find($data['id']);
+        if($data['oldpass']!=$adminInfo['password']){
+            return '原密码错误';
+        }
+        $adminInfo->password=$data['newpass']?$data['newpass']:$adminInfo->password;
+        $adminInfo->nickname=$data['nickname'];
+        $result=$adminInfo->save();
+        if($result){
+            return 1;
+        }else{
+            return '管理员修改失败';
+        }
+    }
 
 }
